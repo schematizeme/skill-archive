@@ -3,7 +3,7 @@ description: GERA AFAZERES pro overdev a partir do histórico recuperável do ar
 argument-hint: "[escopo opcional]"
 ---
 Gere os **afazeres do overdev a partir do histórico recuperável** seguindo `references/gerar-afazeres.md`.
-Varra EXAUSTIVAMENTE o `<projeto>_archive/` + `.schematize/` + histórico git: checklists com `- [ ]`/
+Varra EXAUSTIVAMENTE o `<projeto>/_archive/` + `.schematize/` + histórico git: checklists com `- [ ]`/
 `- [~]`, perguntas parkeadas (`PERGUNTAS-OVERDEV.txt`), premature-stops, ADRs `proposed`, planos com
 itens abertos, handoffs de `chats/` com seção EM ABERTO, TODOs/FIXMEs do git. Aplique a disciplina
 red-first (**"feito" sem prova volta a ABERTO**; on-hold sem resposta = aberto). Derive um CHECKLIST
