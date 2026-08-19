@@ -26,6 +26,14 @@ a **evolução do projeto DOCUMENTADA**.
   evolução). É o `git log` do archive que responde "como o sistema evoluiu".
 - **NÃO é gitignored** no projeto (é um repo). O que É gitignored é o `.schematize/` (operacional volátil).
 
+## Populado AUTOMATICAMENTE: `schematize archive`
+O archive não é opcional NEM manual: rode **`schematize archive`** (ou o botão na GUI) — ele
+materializa a estrutura, **extrai CADA mensagem** (você + respostas) do transcript da sessão pro
+`chats/<sessão>.md` (um item por mensagem), gera o próximo **`context_agent/#N.txt`** (o contexto
+portável) e **commita** no repo do archive. Rode ao fechar um marco, ao migrar de PC/app, ou sempre
+que quiser um snapshot. Disciplina: **cada mensagem → item em `chats/`; cada checklist → itens no
+CHECKLIST; cada decisão → arquivo em `decisoes/`**. Nada de histórico volátil.
+
 ## `/archive-init` — o que faz
 1. Detecta/deriva `<projeto>/<projeto>_archive/` (irmão dos microserviços, dentro do projeto). Cria a estrutura acima se faltar.
 2. **`git init`** o `<projeto>_archive/` se ainda não for repo; garante o remote **privado** `<projeto>_archive`.

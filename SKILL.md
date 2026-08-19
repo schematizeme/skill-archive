@@ -1,7 +1,7 @@
 ---
 name: schematize-archive
 metadata:
-  version: 0.1.2
+  version: 0.1.3
 description: O ARCHIVE da casa como CRITICIDADE 0 — armazenar o histórico da evolução do sistema NÃO é opcional. Rege o `<projeto>/<projeto>_archive/` obrigatório (checklists, planos, decisões/ADRs, handoffs de contexto/chat, índice/MAPA, relatórios de audit/pentest, snapshots do overdev) — o rastro durável e RECUPERÁVEL que garante a observabilidade da evolução (o que foi decidido, planejado, feito e o que ficou aberto). Materializa a estrutura do archive (`/archive-init`) e, o principal, GERA AFAZERES PARA O OVERDEV a partir do histórico recuperável (`/archive-todos`): varre o archive + o histórico git, enumera o que ficou ABERTO/prometido-e-não-provado (checklists com `- [ ]`/`- [~]`, perguntas parkeadas, ADRs `proposed`, planos com itens abertos, premature-stops, handoffs FEITO-vs-ABERTO) e deriva um `.schematize/overdev/CHECKLIST.md` pronto pra rodar sob o overdev — com a mesma disciplina red-first da schematize-audit ("feito" sem prova volta a aberto). Use SEMPRE que for iniciar/retomar um projeto, fechar um marco, "recuperar o que faltou", montar o próximo overdev a partir do que já existe, ou garantir que o histórico está sendo guardado. Archive AUSENTE = bug de observabilidade (criticidade 0). Pareia com schematize-engineering (archive §28, overdev), schematize-audit (o oráculo dos órfãos) e schematize-overdev-context (a Fase 0).
 ---
 
@@ -35,6 +35,7 @@ criticidade 0**, não um detalhe de fim de tarefa.
 - **`/archive-todos`** — o principal: **gera afazeres pro overdev a partir do histórico recuperável**.
   Varre o archive + git, enumera o ABERTO/prometido-e-não-provado, e deriva o
   `.schematize/overdev/CHECKLIST.md`. Ver `references/gerar-afazeres.md`.
+- **`schematize archive`** (CLI/GUI) — POPULA o archive: extrai o chat da sessão pro `chats/` (cada mensagem = um item), gera o `context_agent/#N.txt` (contexto portável entre PCs/apps) e commita. É o que torna a disciplina EXECUTÁVEL (não manual).
 - **`/archive-help`** — mapa da skill.
 
 ## Como se encaixa

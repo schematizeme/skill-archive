@@ -1,5 +1,9 @@
 # Changelog — schematize-archive
 
+## [0.1.3] — 2026-08-18
+Estrutura ganha `context_agent/` (contexto portável #N.txt). Comando `schematize archive` popula chats/ (transcript da sessão, 1 item/mensagem) + gera context_agent/#N.txt + commita. Disciplina executável, não manual.
+
+
 ## [0.1.2] — 2026-08-18
 Archive é `<projeto>/<projeto>_archive/` — nome do projeto (prefixo comum dos microserviços) no dir, pra não misturar archives de projetos diferentes.
 
