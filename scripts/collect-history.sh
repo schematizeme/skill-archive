@@ -9,6 +9,8 @@
 # Entrada: $1 opcional = raiz do projeto (default: diretorio atual).
 # Saida: relatorio por fonte no stdout. exit 0 achou historico - exit 1 NAO ha historico recuperavel
 #        (e dizer isso em voz alta e o resultado, nunca um checklist curto fingindo historia curta).
+# EXCEÇÃO DECLARADA de strict mode (`schematize-shell` -> `references/piso.md` secao 1):
+# COLETOR: enumera todo o histórico recuperável e soma; `grep` sem match sai 1 e é resultado normal, não erro.
 set -uo pipefail
 RAIZ="${1:-$PWD}"
 cd "$RAIZ" || { echo "raiz inexistente: $RAIZ"; exit 2; }

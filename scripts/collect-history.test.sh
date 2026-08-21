@@ -6,6 +6,9 @@
 # mentira e exige que (a) handoff SO em context/ seja encontrado, (b) archive ausente reprove,
 # (c) archive vazio reprove em vez de virar "checklist curto".
 # Entrada: nenhuma. Saida: exit 0 todos os casos passam - exit 1 algum caso falhou.
+# EXCEÇÃO DECLARADA de strict mode (`schematize-shell` -> `references/piso.md` secao 1):
+# harness de teste roda sem `-e` de propósito — ele precisa continuar depois de um caso
+# vermelho para reportar TODOS, em vez de parar no primeiro.
 set -uo pipefail
 S="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/collect-history.sh"
 W="$(mktemp -d)"; trap 'rm -rf "$W"' EXIT

@@ -56,6 +56,101 @@ portável) e **commita** no repo do archive. Rode ao fechar um marco, ao migrar 
 que quiser um snapshot. Disciplina: **cada mensagem → item em `chats/`; cada checklist → itens no
 CHECKLIST; cada decisão → arquivo em `decisoes/`**. Nada de histórico volátil.
 
+## O que NUNCA entra no archive
+
+Este repo guarda **transcript de sessão inteiro**. Isso é o que o torna útil — e é exatamente o que
+o torna perigoso: o que passou pela tela passa pelo `chats/`. A regra é curta:
+
+**Nunca entra:** segredo em qualquer forma (senha, token, chave privada, `.env` real, string de
+conexão com credencial, cookie de sessão) · **dado real de cliente** (PII, e-mail de pessoa real,
+CPF/CNPJ, endereço, dado de saúde ou financeiro — LGPD não abre exceção para "é só o histórico") ·
+dump de produção · anexo binário grande (imagem, vídeo, `.zip`, backup — o archive é **texto que
+conta a evolução**, não bucket) · credencial de terceiro em log colado.
+
+**Como isso costuma entrar, na prática:** um `curl -v` colado com o header `Authorization`, um stack
+trace com a connection string, um "olha o retorno da API" com o payload do cliente, um `cat .env`
+para depurar. Nenhum desses parece segredo na hora — todos são.
+
+**Se entrou:** o commit **não resolve nada**. Segredo commitado uma vez está **vazado para sempre**,
+e num repo com histórico o `git rm` só o esconde da última versão. A ação é, nesta ordem:
+**(1) rotacionar** a credencial · (2) registrar o incidente em `decisoes/` (é ADR, não fofoca) ·
+(3) só então reescrever o histórico, se valer a pena. Para dado pessoal, o passo (1) é **notificar
+quem cuida de privacidade**, porque o prazo legal corre a partir do conhecimento.
+
+**O gate:** `scripts/check-archive.sh` varre o archive antes do commit e reprova nos padrões acima.
+Ele é falível por construção (segredo tem infinitas formas) — **um verde dele não é permissão para
+colar `.env`**, é só a rede embaixo do trapézio. Instale-o como `pre-commit` no repo do archive.
+
+## Convenção de nome (para quem vai LER daqui a um ano)
+
+Arquivo que ninguém acha é arquivo que não existe. O padrão é **um só**: prefixo de data ISO, slug
+em kebab-case, sem espaço, sem acento, sem maiúscula.
+
+| Pasta | Padrão | Exemplo |
+|---|---|---|
+| `chats/` | `AAAA-MM-DD-<slug-da-sessao>.md` | 2026-08-21-saneamento-catalogo.md |
+| `context/` | `AAAA-MM-DD-<slug>-context.md` e o par …-checklist.md | 2026-08-21-fase-b-context.md |
+| `decisoes/` | `ADR-NNNN-<slug>.md` (sequencial, **nunca reusado**) | ADR-0007-skills-json-derivado.md |
+| `plan/` · `scan/` · `qa/` · `audit/` · `pentest/` | `AAAA-MM-DD-<slug>.md` | 2026-08-21-gate-owasp.md |
+| `index/` | nome fixo: MAPA.md, INDEX_GLOBAL.md, … | — |
+
+**Por que a data na frente:** ordenação alfabética = ordenação cronológica, em qualquer ferramenta,
+sem metadado. **Por que o número do ADR nunca se reusa:** ADR rejeitado continua existindo e sendo
+citado; reusar o número faz duas decisões diferentes responderem pela mesma referência.
+
+## Retenção e rotação — o `chats/` cresce para sempre
+
+`chats/` é o único diretório que cresce sem limite natural: cada sessão acrescenta o transcript
+inteiro. Sem política, ou o repo fica pesado demais para clonar, ou alguém "limpa" no susto e leva
+junto o que importava.
+
+- **Nada é apagado.** Criticidade 0 significa que a história é **recuperável**; apagar transcript
+  quebra a única promessa desta skill. Retenção aqui é **arquivamento**, não expurgo.
+- **Rotação por ano:** a partir de ~200 arquivos ou ~50 MB em `chats/`, mova o que passou do ano
+  corrente para `chats/<ano>/`. É `git mv` — o histórico segue completo, o `ls` volta a ser legível.
+- **Compressão só do que já foi movido**, e só se doer: `chats/<ano>.tar.zst` commitado com um
+  `chats/<ano>/README.md` dizendo o que tem dentro e como abrir. Nunca comprima o ano corrente: o
+  que a `/archive-todos` varre precisa continuar `grep`-ável.
+- **O `context/` não rotaciona.** Ele é o resumo, é pequeno, e é por onde qualquer retomada começa.
+- **Sem `.gitignore` seletivo dentro do archive.** Ignorar arquivo dentro do repo cuja função é
+  guardar rastro é anular o repo — o que não pode ser guardado **não pode ter entrado** (seção
+  anterior).
+
+## Recuperação — o que "recuperável" significa em comandos
+
+Rastro que ninguém sabe restaurar não é rastro; é sensação de segurança. **Este procedimento é
+testado, não presumido** — ensaie-o quando o archive estiver saudável, não no dia do incidente.
+
+**1. Trazer de volta (máquina nova, repo do projeto perdido):**
+
+```bash
+gh repo clone <org>/<projeto>_archive   # é repo git PRIVADO próprio: sobrevive à perda do projeto
+cd <projeto>_archive && git log --oneline | head -30   # a evolução, em ordem
+```
+
+**2. Achar a história de um assunto** — varra os **dois** lugares do rastro, sempre:
+
+```bash
+grep -ril "<assunto>" chats/ context/ decisoes/ | sort   # bruto + handoff + decisão
+git log --oneline -S "<assunto>"                          # quando o assunto ENTROU no repo
+```
+
+**3. Reconstruir o estado de trabalho** (é isto que devolve alguém ao teclado):
+o `context/` mais recente do assunto (o handoff com FEITO-vs-ABERTO) · `overdev/CHECKLIST.md` (o
+juiz: o que estava aberto) · `decisoes/` (por que as coisas são como são) · `index/MAPA.md` (onde
+cada coisa mora).
+
+**4. Recolocar o operacional:** o archive é o **espelho durável**; `.schematize/` é o vivo. Copie
+`overdev/` do archive de volta para `.schematize/overdev/` e siga do primeiro item aberto.
+
+**5. Verificar que a recuperação valeu** — a pergunta é uma só: *dá para retomar sem perguntar nada
+a ninguém?* Se falta contexto, o buraco é do **archive**, não da memória de quem saiu; registre o
+que faltou e corrija o hábito que causou (`/archive-todos`).
+
+**Ensaio:** clone o archive **num diretório limpo** e responda três perguntas usando só ele — o que
+estava aberto? por que a decisão X foi tomada? onde mora o serviço Y? Não conseguiu: o archive
+reprovou, e isso é achado.
+
 ## `/archive-init` — o que faz
 1. Detecta/deriva `<projeto>/<projeto>_archive/` (irmão dos microserviços, dentro do projeto). Cria a estrutura acima se faltar.
 2. **`git init`** o `<projeto>_archive/` se ainda não for repo; garante o remote **privado** `<projeto>_archive`.

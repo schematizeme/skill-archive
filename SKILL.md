@@ -1,7 +1,7 @@
 ---
 name: schematize-archive
 metadata:
-  version: 0.1.3
+  version: 0.2.0
 description: O ARCHIVE da casa como CRITICIDADE 0 — guardar o histórico da evolução do sistema NÃO é opcional. Rege o `<projeto>/<projeto>_archive/` obrigatório (overdev, índice/MAPA, decisões/ADRs, chats e handoffs de contexto, plan/scan/qa, relatórios de audit/pentest): o rastro durável e RECUPERÁVEL do que foi decidido, planejado, feito — e do que ficou aberto. Materializa a estrutura (`/archive-init`) e, principalmente, GERA AFAZERES PARA O OVERDEV a partir do histórico recuperável (`/archive-todos`): varre archive + git, enumera por contagem o que ficou ABERTO ou prometido-e-não-provado (checklists `- [ ]`/`- [~]`, perguntas parkeadas, ADRs `proposed`, premature-stops, handoffs FEITO-vs-ABERTO) e deriva o `.schematize/overdev/CHECKLIST.md` com a disciplina red-first ("feito" sem prova volta a aberto). Use SEMPRE que for iniciar/retomar projeto, fechar marco, recuperar o que faltou, montar o próximo overdev ou garantir que o histórico está sendo gravado. Archive ausente = bug de observabilidade.
 ---
 
@@ -13,7 +13,7 @@ que ficou aberto* — a **observabilidade da evolução**. Sem ele, o sistema é
 retomada recomeça do zero, promessas somem, "feito" não se prova. **Archive ausente = bug de
 criticidade 0**, não um detalhe de fim de tarefa.
 
-**Versão:** skill `schematize-archive` v0.1.3. Changelog em `CHANGELOG.md`.
+**Versão:** skill `schematize-archive` v0.2.0. Changelog em `CHANGELOG.md`.
 
 ## Piso inegociável
 - **O archive é OBRIGATÓRIO** em todo projeto — materializado como `<projeto>/<projeto>_archive/`, **DENTRO do
@@ -33,6 +33,7 @@ criticidade 0**, não um detalhe de fim de tarefa.
 
 ## Comandos
 - **`/archive-init`** — materializa a estrutura obrigatória do `<projeto>/<projeto>_archive/` e checa o que falta
+- **`/archive-check`** — o gate do archive: segredo/PII/binário/`.gitignore` interno/ADR duplicado/convenção de nome, com o procedimento de **recuperação** ensaiado ao lado (`scripts/check-archive.sh`)
   (nunca deixa o archive ausente). Ver `references/archive.md`.
 - **`/archive-todos`** — o principal: **gera afazeres pro overdev a partir do histórico recuperável**.
   Varre o archive + git, enumera o ABERTO/prometido-e-não-provado, e deriva o

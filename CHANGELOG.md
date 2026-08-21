@@ -1,16 +1,30 @@
 # Changelog — schematize-archive
 
+Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
+com versionamento [SemVer](https://semver.org/lang/pt-BR/).
+
+## [0.2.0] — 2026-08-21
+Os **quatro buracos** que a vistoria de 2026-08-21 achou numa skill que declara criticidade 0 e promete rastro *"recuperável"* (4 ocorrências) em 119 linhas — e que reprovou no seu próprio primeiro teste real (B1).
+
+### Adicionado
+- **`references/archive.md` → "O que NUNCA entra no archive"** — o buraco mais grave, num repo que guarda **transcript de sessão inteiro**: segredo em qualquer forma, dado real de cliente, dump de produção, binário grande. Com **como isso entra na prática** (o `curl -v` colado com o header, o stack trace com a connection string, o `cat .env` para depurar — nenhum parece segredo na hora) e o que fazer **se entrou**: rotacionar primeiro, porque segredo commitado uma vez está **vazado para sempre** e `git rm` só esconde da última versão.
+- **"Convenção de nome"** — `AAAA-MM-DD-<slug>` em tudo, `ADR-NNNN-<slug>` nas decisões, com o porquê: data na frente faz **ordem alfabética virar cronológica** sem metadado, e número de ADR **nunca se reusa** porque ADR rejeitado continua sendo citado.
+- **"Retenção e rotação"** — `chats/` é o único diretório que cresce sem limite. **Nada é apagado** (criticidade 0 significa recuperável; apagar transcript quebra a única promessa da skill): rotação por ano com `git mv`, compressão só do que já saiu do ano corrente, `context/` não rotaciona, e **nada de `.gitignore` seletivo** dentro do archive — o que não pode ser guardado não pode ter entrado.
+- **"Recuperação — o que 'recuperável' significa em comandos"** — os 5 passos (clonar, achar varrendo **os dois** lugares do rastro, reconstruir o estado de trabalho, recolocar o operacional em `.schematize/`, verificar) e o **ensaio**: clone num diretório limpo e responda três perguntas usando só ele. Não conseguiu, o archive reprovou — e isso é achado.
+- **`scripts/check-archive.sh`** + **`/archive-check`** — o gate, instalável como `pre-commit`. Reprova header `Authorization`, bloco PEM, token de provedor, string de conexão com senha, variável de segredo com valor, CPF, cartão, binário grande, `.gitignore` interno, **número de ADR reusado** e archive que não é repo git. O relatório aponta **arquivo:linha e nunca o valor** — gate que ecoa o segredo faz a segunda cópia dele. E o verde diz de si mesmo que **não é permissão para colar `.env`**.
+- **`scripts/check-archive.test.sh`** — **17 casos** com segredos sintéticos (plantar segredo real num fixture seria cometer o defeito que o gate persegue), incluindo o teste de que a saída **não ecoa** o valor encontrado.
+
+### Corrigido
+- O padrão do PEM começa com `-----`: sem `grep -e`, o grep o lia como opção e o gate ficava **silenciosamente cego justo para chave privada**. Pego pelo próprio vermelho do teste.
+
 ## [0.1.3] — 2026-08-18
 Estrutura ganha `context_agent/` (contexto portável #N.txt). Comando `schematize archive` popula chats/ (transcript da sessão, 1 item/mensagem) + gera context_agent/#N.txt + commita. Disciplina executável, não manual.
-
 
 ## [0.1.2] — 2026-08-18
 Archive é `<projeto>/<projeto>_archive/` — nome do projeto (prefixo comum dos microserviços) no dir, pra não misturar archives de projetos diferentes.
 
-
 ## [0.1.1] — 2026-08-18
 Archive fica DENTRO do projeto (`<projeto>/<projeto>_archive/`, irmão dos microserviços) — não mais irmão do projeto.
-
 
 ## [0.1.0] — 2026-08-18
 Skill nova: o archive como CRITICIDADE 0 (obrigatório, não opcional) + gerador de afazeres pro overdev.

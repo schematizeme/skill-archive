@@ -42,15 +42,30 @@ unzip skill-archive.zip -d .claude/skills/
   mora dentro dele (`overdev/ index/ decisoes/ chats/ context/ audit/ pentest/`).
 - **references/** — `archive` (a estrutura obrigatória e o ciclo de vida), `gerar-afazeres` (como
   transformar o histórico recuperável em checklist de overdev, com disciplina red-first).
-- **scripts/** — `collect-history.sh`: enumera **por contagem** todo o histórico recuperável
+- **scripts/** — `check-archive.sh` (o gate: segredo/PII/binário/convenção, com 17 casos de teste) e
+  `collect-history.sh`: enumera **por contagem** todo o histórico recuperável
   (checklists nas 3 classes, handoffs em `chats/` **e** `context/`, ADRs `proposed`, perguntas
   parkeadas, premature-stops, TODO/FIXME) e **reprova** quando não há archive ou não há histórico.
   É o passo 1 do `/archive-todos` — sem ele a varredura vira memória.
-- **assets/commands/** — `/archive-help`, `/archive-init` (materializa a estrutura),
-  `/archive-todos` (gera os afazeres do overdev).
+- **assets/commands/** — `/archive-help`, `/archive-init` (materializa a estrutura e o repo),
+  `/archive-check` (o gate do que nunca pode entrar), `/archive-todos` (gera os afazeres do overdev).
 - **assets/CLAUDE.md** — regra sempre-on: archive é criticidade 0; decisão/plano/handoff vira
   arquivo durável.
 - **gui.json** — os botões **Archive** (`/archive-init`) e **Afazeres** (`/archive-todos`) na GUI.
+
+## Comandos
+
+| Comando | O que faz |
+|---|---|
+| `/archive-help` | lista os comandos da skill |
+| `/archive-init` | materializa o `<projeto>/<projeto>_archive/` (estrutura + **`git init` e remote privado**), espelha o `.schematize/`, grava o handoff da sessão e reporta o que estava ausente |
+| `/archive-check` | o gate: varre o archive antes do commit — segredo, PII, binário, `.gitignore` interno, ADR duplicado, convenção de nome — e lembra o ensaio de recuperação |
+| `/archive-todos` | gera os afazeres do overdev a partir do histórico recuperável (checklists nas 3 classes, ADRs `proposed`, perguntas parkeadas, premature-stops), com disciplina red-first |
+
+## Versão
+
+**v0.2.0** — changelog completo em `CHANGELOG.md`. Instalação e bump seguem o padrão do catálogo
+(`VERSION`, `skill.toml`, frontmatter e linha do `SKILL.md`, mais o `skills.json` derivado).
 
 ## Regra de ouro
 
