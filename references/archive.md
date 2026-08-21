@@ -3,16 +3,38 @@
 DENTRO do dir do projeto: `<projeto>/<projeto>_archive/` — **irmão dos diretórios de microserviços** (não irmão do projeto). TUDO fica dentro do projeto. O `<projeto>` é o NOME DO PROJETO — o prefixo comum dos microserviços (`<projeto>_<microservice>`, ex.: `schematize_cli_rs`/`schematizeskills_api_rs` → `schematize`) — pra o archive nunca misturar com o de outro projeto. O motor `schematize overdev start` já cria e
 espelha `overdev/`. Se o projeto não tem archive, **criá-lo é o 1º item** — nunca siga sem archive.
 
-## Estrutura
+## Estrutura — a planta CANÔNICA (esta skill é a dona; as outras apontam para cá)
+
+> Até 2026-08-21 havia **três plantas concorrentes** no catálogo (aqui, em
+> `schematize-docs/references/indice-diagramas.md` e em `schematize-scaffold`), cada uma com um
+> conjunto de pastas diferente — e **quatro caminhos de ADR** distintos, o que tornava o piso
+> *"ADR `proposed` é órfão RED"* inexequível por construção: o `/docs-adr` gravava num lugar, a
+> `/archive-todos` procurava noutro e a `/audit-run` num terceiro (achado B2/B2b). Esta é a planta
+> única; qualquer outra citação do catálogo é **ponteiro para cá**, nunca uma segunda definição.
+
 ```
 <projeto>/<projeto>_archive/
-  overdev/     # OBJETIVO.md, PLAN.md, DECISOES.md, CHECKLIST.md, NOTAS.md, premature-stops.log
+  overdev/     # OBJETIVO.md, PLAN.md, DECISOES.md, CHECKLIST.md, NOTAS.md,
+               #   premature-stops.log, PERGUNTAS-OVERDEV.txt
   index/       # MAPA.md + INDEX_GLOBAL.md + INDEX_FUNCTIONS.md + grafos (§39)
-  decisoes/    # ADRs no ciclo proposed → accepted/rejected (uma decisão = um arquivo datado)
-  chats/       # handoffs de contexto por sessão: FEITO-vs-ABERTO (o rastro do que cada sessão fez)
+  decisoes/    # ADRs no ciclo proposed -> accepted/rejected (uma decisão = um arquivo datado).
+               #   CAMINHO ÚNICO de ADR da casa: quem grava (/docs-adr), quem lê (/archive-todos)
+               #   e quem audita (/audit-run) usam ESTE. Nada de `docs/adr/` nem `archive/adr/`.
+  chats/       # rastro BRUTO da sessão: cada mensagem extraída pelo `schematize archive`
+  context/     # handoffs RICOS de contexto: os pares context.md + checklist.md (FEITO-vs-ABERTO)
+               #   gravados por `/<slug>-cc` e `/<slug>-handoff` (70 ocorrências no catálogo)
+  plan/        # planos do /eng-plan (fases + DoD + checklist)
+  scan/        # achados do /eng-scan
+  qa/          # planos e relatórios do Q.A. plan-first (/qa-plan, /qa-run)
   audit/       # relatórios da schematize-audit
   pentest/     # relatórios da schematize-pentest
 ```
+
+> **`chats/` e `context/` são os DOIS lugares do rastro de sessão, e os dois são recuperáveis.**
+> A distinção: `chats/` é o bruto (mensagem a mensagem, gerado por máquina); `context/` é o handoff
+> escrito pelo modelo, com FEITO-vs-ABERTO. Até 2026-08-21 a planta listava só `chats/` enquanto
+> todos os comandos `-cc`/`-handoff` gravavam em `context/` — e a `/archive-todos`, que varria só
+> `chats/`, **devolvia vazio sem erro** (achado B1). Quem lê história tem de varrer **os dois**.
 O operacional VIVO fica em `.schematize/` (overdev/, grafos/); o **espelho durável é o archive** — é
 dele que a auditoria, a retomada e o `/archive-todos` recuperam a história.
 

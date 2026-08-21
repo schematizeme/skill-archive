@@ -9,7 +9,13 @@ pra rodar sob o overdev. É a ponte "história → próximo trabalho".
 - `PERGUNTAS-OVERDEV.txt` + `premature-stops.log`: perguntas parkeadas sem resposta; paradas travadas.
 - `<projeto>/<projeto>_archive/decisoes/*`: ADRs `proposed` que nunca viraram accepted/rejected.
 - `<projeto>/<projeto>_archive/overdev/PLAN.md`: itens do plano sem prova de conclusão.
-- `<projeto>/<projeto>_archive/chats/*`: handoffs com seção ABERTO / "EM ABERTO" / "próximos passos".
+- `<projeto>/<projeto>_archive/chats/*` **E** `<projeto>/<projeto>_archive/context/*`: handoffs com
+  seção ABERTO / "EM ABERTO" / "próximos passos". **Os DOIS diretórios, sempre** — `context/` é onde
+  os comandos `/<slug>-cc` e `/<slug>-handoff` gravam (70 ocorrências no catálogo) e `chats/` é o
+  rastro bruto. Varrer só um devolve vazio sem erro, que é o pior modo de falha de uma skill de
+  auditoria (achado B1 da vistoria de 2026-08-21).
+- **Se as duas pastas estiverem vazias ou ausentes, DIGA ISSO** — "0 handoffs encontrados em
+  `chats/` e `context/`" — nunca produza um checklist curto como se a história fosse curta.
 - Histórico git: TODOs/FIXMEs introduzidos e não resolvidos; promessas em mensagens de commit.
 - Qualquer `.md` do archive com `- [ ]`/`- [~]`/"EM ABERTO".
 
