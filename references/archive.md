@@ -21,6 +21,8 @@ espelha `overdev/`. Se o projeto não tem archive, **criá-lo é o 1º item** �
   decisoes/    # ADRs no ciclo proposed -> accepted/rejected (uma decisão = um arquivo datado).
                #   CAMINHO ÚNICO de ADR da casa: quem grava (/docs-adr), quem lê (/archive-todos)
                #   e quem audita (/audit-run) usam ESTE. Nada de `docs/adr/` nem `archive/adr/`.
+  postmortems/ # postmortems blameless de incidente, um arquivo por incidente (schematize-incident →
+               #   references/postmortem.md); o rito de incidente mora lá, o ARQUIVO mora aqui
   chats/       # rastro BRUTO da sessão: cada mensagem extraída pelo `schematize archive`
   context/     # handoffs RICOS de contexto: os pares context.md + checklist.md (FEITO-vs-ABERTO)
                #   gravados por `/<slug>-cc` e `/<slug>-handoff` (todas as skills de linguagem e de domínio)
@@ -77,7 +79,7 @@ para depurar. Nenhum desses parece segredo na hora — todos são.
 
 **Se entrou:** o commit **não resolve nada**. Segredo commitado uma vez está **vazado para sempre**,
 e num repo com histórico o `git rm` só o esconde da última versão. A ação é, nesta ordem:
-**(1) rotacionar** a credencial · (2) registrar o incidente em `decisoes/` (é ADR, não fofoca) ·
+**(1) rotacionar** a credencial · (2) registrar o incidente em `postmortems/` (rito e formato: `schematize-incident → references/postmortem.md`) e, se mudou uma regra, a decisão em `decisoes/` como ADR ·
 (3) só então reescrever o histórico, se valer a pena. Para dado pessoal, o passo (1) é **notificar
 quem cuida de privacidade**, porque o prazo legal corre a partir do conhecimento.
 
@@ -95,6 +97,7 @@ em kebab-case, sem espaço, sem acento, sem maiúscula.
 | `chats/` | `AAAA-MM-DD-<slug-da-sessao>.md` | 2026-08-21-saneamento-catalogo.md |
 | `context/` | `AAAA-MM-DD-<slug>-context.md` e o par …-checklist.md | 2026-08-21-fase-b-context.md |
 | `decisoes/` | `ADR-NNNN-<slug>.md` (sequencial, **nunca reusado**) | ADR-0007-skills-json-derivado.md |
+| `postmortems/` | `AAAA-MM-DD-inc-NNN-<slug>.md` (`schematize-incident → references/postmortem.md`) | 2026-10-14-inc-001-queda-auth.md |
 | `plan/` · `scan/` · `qa/` · `audit/` · `pentest/` · `orchestration/` · `scaffold/` | `AAAA-MM-DD-<slug>.md` | 2026-08-21-gate-owasp.md |
 | `overdev/` (briefing) | AAAA-MM-DD-CONTEXTO.md | 2026-10-14-CONTEXTO.md |
 | `index/` | nome fixo: MAPA.md, INDEX_GLOBAL.md, … | — |

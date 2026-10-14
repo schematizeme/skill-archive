@@ -76,7 +76,7 @@ checa "arquivo sem data na frente avisa" 0 "ordem alfabetica virar cronologica" 
 d="$(novo adr)"; printf '# y\n' > "$d/decisoes/ADR-0001-outra-coisa.md"
 checa "numero de ADR reusado reprova" 1 "numero reusado" bash "$G" "$d"
 
-for pasta in plan scan qa audit pentest orchestration scaffold; do
+for pasta in plan scan qa audit postmortems pentest orchestration scaffold; do
   d="$(novo n_$pasta)"; mkdir -p "$d/$pasta"; printf '# x\n' > "$d/$pasta/rascunho.md"
   checa "$pasta/ sem data na frente avisa" 0 "$pasta/rascunho.md fora da convencao" bash "$G" "$d"
   d="$(novo v_$pasta)"; mkdir -p "$d/$pasta"; printf '# x\n' > "$d/$pasta/2026-10-14-ok.md"

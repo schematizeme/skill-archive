@@ -66,7 +66,7 @@ if [ -f "$raiz/.gitignore" ] && grep -qvE '^\s*(#|$)' "$raiz/.gitignore" 2>/dev/
 fi
 
 # --- 5. convencao de nome ----------------------------------------------------------------------
-for d in chats context plan scan qa audit pentest orchestration scaffold; do
+for d in chats context plan scan qa audit postmortems pentest orchestration scaffold; do
   [ -d "$raiz/$d" ] || continue
   for f in "$raiz/$d"/*; do
     [ -f "$f" ] || continue

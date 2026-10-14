@@ -3,6 +3,15 @@
 Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.4.0] — 2026-10-14
+Integração com as 8 skills novas (skill-dev, iam, api, payments, postgres, incident, analytics, git) e saneamento pelo gate novo.
+
+### Alterado
+- Blocos herdados `engineering/precedencia:dominio` e `engineering/orquestracao:curto` (SKILL.md e assets/CLAUDE.md), exigidos pelo gate da `schematize-skill-dev`.
+- Description reduzida a ≤190 caracteres para caber no orçamento do catálogo (45 skills).
+- Comandos obrigatórios `/archive-load`, `/archive-claude`, `/archive-handoff`, `/archive-cc` (e `/archive-help` atualizado).
+- `postmortems/` entra na planta do archive (`references/archive.md`) e na convenção de nome do `check-archive.sh` (com teste); o rito do postmortem é de `schematize-incident`.
+
 ## [0.3.1] — 2026-10-14
 Reduz a description para o orçamento de listagem.
 
