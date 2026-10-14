@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # collect-history.test.sh — o VERMELHO VISTO da coleta de historico (B1 da vistoria de 2026-08-21).
 #
-# Motivo: a /archive-todos varria so `chats/` enquanto as 24 skills gravam handoff em `context/`.
+# Motivo: a /archive-todos varria so `chats/` enquanto as skills gravam handoff em `context/`.
 # Intersecao ZERO: a skill de auditoria devolvia VAZIO SEM ERRO. Este teste monta projetos de
 # mentira e exige que (a) handoff SO em context/ seja encontrado, (b) archive ausente reprove,
 # (c) archive vazio reprove em vez de virar "checklist curto".

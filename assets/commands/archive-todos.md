@@ -3,7 +3,7 @@ description: GERA AFAZERES pro overdev a partir do histórico recuperável do ar
 argument-hint: "[escopo opcional]"
 ---
 **PASSO 1 — a contagem, antes de qualquer prosa.** Rode
-`bash scripts/collect-history.sh <raiz-do-projeto>`: ele enumera as fontes recuperáveis por
+`bash .claude/skills/schematize-archive/scripts/collect-history.sh <raiz-do-projeto>`: ele enumera as fontes recuperáveis por
 contagem (checklists nas 3 classes, handoffs em **`chats/` E `context/`**, ADRs `proposed`,
 perguntas parkeadas, premature-stops, outros `.md` com item aberto, TODO/FIXME no código) e
 **reprova (exit 1)** quando não há archive ou quando não há histórico nenhum. O checklist que você

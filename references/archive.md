@@ -15,19 +15,23 @@ espelha `overdev/`. Se o projeto não tem archive, **criá-lo é o 1º item** �
 ```
 <projeto>/<projeto>_archive/
   overdev/     # OBJETIVO.md, PLAN.md, DECISOES.md, CHECKLIST.md, NOTAS.md,
-               #   premature-stops.log, PERGUNTAS-OVERDEV.txt
+               #   premature-stops.log, PERGUNTAS-OVERDEV.txt e o briefing da Fase 0
+               #   AAAA-MM-DD-CONTEXTO.md (schematize-overdev-context)
   index/       # MAPA.md + INDEX_GLOBAL.md + INDEX_FUNCTIONS.md + grafos (§39)
   decisoes/    # ADRs no ciclo proposed -> accepted/rejected (uma decisão = um arquivo datado).
                #   CAMINHO ÚNICO de ADR da casa: quem grava (/docs-adr), quem lê (/archive-todos)
                #   e quem audita (/audit-run) usam ESTE. Nada de `docs/adr/` nem `archive/adr/`.
   chats/       # rastro BRUTO da sessão: cada mensagem extraída pelo `schematize archive`
   context/     # handoffs RICOS de contexto: os pares context.md + checklist.md (FEITO-vs-ABERTO)
-               #   gravados por `/<slug>-cc` e `/<slug>-handoff` (70 ocorrências no catálogo)
+               #   gravados por `/<slug>-cc` e `/<slug>-handoff` (todas as skills de linguagem e de domínio)
+  context_agent/ # contexto portável `#N.txt` gerado pelo `schematize archive` (entre PCs/apps)
   plan/        # planos do /eng-plan (fases + DoD + checklist)
   scan/        # achados do /eng-scan
   qa/          # planos e relatórios do Q.A. plan-first (/qa-plan, /qa-run)
   audit/       # relatórios da schematize-audit
   pentest/     # relatórios da schematize-pentest
+  orchestration/ # checkpoints e briefs da orquestração (schematize-engineering)
+  scaffold/    # relatórios do scaffold de projeto novo (schematize-scaffold)
 ```
 
 > **`chats/` e `context/` são os DOIS lugares do rastro de sessão, e os dois são recuperáveis.**
@@ -91,7 +95,8 @@ em kebab-case, sem espaço, sem acento, sem maiúscula.
 | `chats/` | `AAAA-MM-DD-<slug-da-sessao>.md` | 2026-08-21-saneamento-catalogo.md |
 | `context/` | `AAAA-MM-DD-<slug>-context.md` e o par …-checklist.md | 2026-08-21-fase-b-context.md |
 | `decisoes/` | `ADR-NNNN-<slug>.md` (sequencial, **nunca reusado**) | ADR-0007-skills-json-derivado.md |
-| `plan/` · `scan/` · `qa/` · `audit/` · `pentest/` | `AAAA-MM-DD-<slug>.md` | 2026-08-21-gate-owasp.md |
+| `plan/` · `scan/` · `qa/` · `audit/` · `pentest/` · `orchestration/` · `scaffold/` | `AAAA-MM-DD-<slug>.md` | 2026-08-21-gate-owasp.md |
+| `overdev/` (briefing) | AAAA-MM-DD-CONTEXTO.md | 2026-10-14-CONTEXTO.md |
 | `index/` | nome fixo: MAPA.md, INDEX_GLOBAL.md, … | — |
 
 **Por que a data na frente:** ordenação alfabética = ordenação cronológica, em qualquer ferramenta,
@@ -155,7 +160,7 @@ reprovou, e isso é achado.
 1. Detecta/deriva `<projeto>/<projeto>_archive/` (irmão dos microserviços, dentro do projeto). Cria a estrutura acima se faltar.
 2. **`git init`** o `<projeto>_archive/` se ainda não for repo; garante o remote **privado** `<projeto>_archive`.
 3. Espelha o que já existe em `.schematize/` (overdev, grafos) pro archive.
-4. Grava um handoff mínimo em `chats/` da sessão atual (o que foi feito, o que ficou aberto).
+4. Grava um handoff mínimo em `context/AAAA-MM-DD-<slug>-context.md` da sessão atual (o que foi feito, o que ficou aberto).
 5. Reporta o que estava AUSENTE (o gap de observabilidade que acabou de ser fechado).
 
 Regra: **nada de histórico volátil.** Toda decisão/plano/handoff relevante vira arquivo no archive.

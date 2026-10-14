@@ -9,7 +9,7 @@ O archive guarda **transcript de sessão inteiro**: é o que o torna útil e o q
 o que passou pela tela passa pelo `chats/`.
 
 ```bash
-bash .claude/skills/schematize-archive/scripts/check-archive.sh ../<projeto>_archive
+bash .claude/skills/schematize-archive/scripts/check-archive.sh <projeto>_archive
 ```
 
 `0` passa · `1` reprova · `2` não é um archive.
@@ -37,9 +37,10 @@ um punhado.
 ## Instale como pre-commit no archive
 
 ```bash
-printf '#!/bin/sh\nexec bash "$(git rev-parse --show-toplevel)/../<projeto>/.claude/skills/schematize-archive/scripts/check-archive.sh" "$(git rev-parse --show-toplevel)"\n' \
-  > ../<projeto>_archive/.git/hooks/pre-commit
-chmod +x ../<projeto>_archive/.git/hooks/pre-commit
+# rodar na raiz do <projeto>; o archive mora DENTRO dele (<projeto>/<projeto>_archive)
+printf '#!/bin/sh\nA="$(git rev-parse --show-toplevel)"\nexec bash "$A/../.claude/skills/schematize-archive/scripts/check-archive.sh" "$A"\n' \
+  > <projeto>_archive/.git/hooks/pre-commit
+chmod +x <projeto>_archive/.git/hooks/pre-commit
 ```
 
 ## E ensaie a recuperação

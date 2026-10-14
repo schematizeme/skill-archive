@@ -7,7 +7,7 @@ canônica é a de `references/archive.md`). Archive é **CRITICIDADE 0 — não 
 
 Passos — os **cinco**, na ordem:
 
-1. **Crie a estrutura** (`overdev/ index/ decisoes/ chats/ context/ plan/ scan/ qa/ audit/ pentest/`)
+1. **Crie a estrutura** (`overdev/ index/ decisoes/ chats/ context/ context_agent/ plan/ scan/ qa/ audit/ pentest/ orchestration/ scaffold/`)
    se faltar — **`context/` junto de `chats/`**, que é onde os comandos `/<slug>-cc` e
    `/<slug>-handoff` gravam e onde a `/archive-todos` também lê.
 2. **`git init`** no `<projeto>_archive/` se ainda não for repo, **e garanta o remote PRIVADO**

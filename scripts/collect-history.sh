@@ -2,7 +2,7 @@
 # collect-history.sh — enumera, POR CONTAGEM, todo o historico recuperavel de um projeto.
 #
 # Motivo: a /archive-todos varria so `_archive/chats/` enquanto os comandos `-cc`/`-handoff` das
-# 24 skills gravam em `_archive/context/` — intersecao ZERO. A skill cuja funcao e enumerar o que
+# skills gravam em `_archive/context/` — intersecao ZERO. A skill cuja funcao e enumerar o que
 # ficou aberto devolvia VAZIO SEM ERRO (achado B1 da vistoria de 2026-08-21), o pior modo de falha
 # de uma ferramenta de auditoria. Este script torna a varredura deterministica e testavel: quem
 # gera o checklist parte da contagem dele, nao da memoria.

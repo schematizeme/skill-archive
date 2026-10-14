@@ -39,7 +39,7 @@ unzip skill-archive.zip -d .claude/skills/
 ## O que tem dentro
 
 - **SKILL.md** — o contrato: o archive é obrigatório, é **repo git próprio e privado**, e o que
-  mora dentro dele (`overdev/ index/ decisoes/ chats/ context/ audit/ pentest/`).
+  mora dentro dele (`overdev/ index/ decisoes/ chats/ context/ context_agent/ plan/ scan/ qa/ audit/ pentest/ orchestration/ scaffold/`).
 - **references/** — `archive` (a estrutura obrigatória e o ciclo de vida), `gerar-afazeres` (como
   transformar o histórico recuperável em checklist de overdev, com disciplina red-first).
 - **scripts/** — `check-archive.sh` (o gate: segredo/PII/binário/convenção, com 17 casos de teste) e

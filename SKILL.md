@@ -2,7 +2,10 @@
 name: schematize-archive
 metadata:
   version: 0.2.0
-description: O ARCHIVE da casa como CRITICIDADE 0 — guardar o histórico da evolução do sistema NÃO é opcional. Rege o `<projeto>/<projeto>_archive/` obrigatório (overdev, índice/MAPA, decisões/ADRs, chats e handoffs de contexto, plan/scan/qa, relatórios de audit/pentest): o rastro durável e RECUPERÁVEL do que foi decidido, planejado, feito — e do que ficou aberto. Materializa a estrutura (`/archive-init`) e, principalmente, GERA AFAZERES PARA O OVERDEV a partir do histórico recuperável (`/archive-todos`): varre archive + git, enumera por contagem o que ficou ABERTO ou prometido-e-não-provado (checklists `- [ ]`/`- [~]`, perguntas parkeadas, ADRs `proposed`, premature-stops, handoffs FEITO-vs-ABERTO) e deriva o `.schematize/overdev/CHECKLIST.md` com a disciplina red-first ("feito" sem prova volta a aberto). Use SEMPRE que for iniciar/retomar projeto, fechar marco, recuperar o que faltou, montar o próximo overdev ou garantir que o histórico está sendo gravado. Archive ausente = bug de observabilidade.
+description: >-
+  Rege o `<projeto>/<projeto>_archive/` obrigatório (repo git privado: overdev, índice, ADRs, chats, handoffs, relatórios)
+  e gera afazeres para o overdev a partir do histórico (`/archive-todos`). Use ao iniciar/retomar projeto, fechar
+  marco, recuperar o que ficou aberto ou checar o archive (`/archive-init`, `/archive-check`).
 ---
 
 # O ARCHIVE da casa (schematize-archive) — criticidade 0
@@ -25,9 +28,11 @@ criticidade 0**, não um detalhe de fim de tarefa.
   decisão/plano/handoff/fechamento). NÃO é gitignored no projeto — é um repo, não lixo operacional.
   (O operacional volátil é o `.schematize/`, esse sim gitignored.)
 - **O que MORA no archive** (durável, recuperável): `overdev/` (OBJETIVO, PLAN, DECISOES, CHECKLIST,
-  NOTAS, premature-stops), `index/` (MAPA + grafos §39), `decisoes/` (ADRs no ciclo proposed→accepted/
-  rejected), `chats/` (handoffs de contexto — o FEITO-vs-ABERTO de cada sessão), `audit/` e `pentest/`
-  (relatórios). O operacional vivo é `.schematize/`; o **espelho durável é o archive**.
+  NOTAS, premature-stops, AAAA-MM-DD-CONTEXTO.md), `index/` (MAPA + grafos §39), `decisoes/` (ADRs
+  `ADR-NNNN-<slug>.md`, ciclo proposed→accepted/rejected), `chats/` (rastro bruto da sessão),
+  `context/` (handoffs `AAAA-MM-DD-<slug>-context.md` — o FEITO-vs-ABERTO de cada sessão),
+  `context_agent/` (contexto portável), `plan/`, `scan/`, `qa/`, `audit/`, `pentest/`,
+  `orchestration/` e `scaffold/` (relatórios de cada skill). Planta completa em `references/archive.md`. O operacional vivo é `.schematize/`; o **espelho durável é o archive**.
 - **Nada de histórico só na cabeça/no chat volátil.** Decisão tomada → grava no archive. Plano feito →
   archive. Sessão que fez handoff → archive. É o que a schematize-audit depois COBRA.
 

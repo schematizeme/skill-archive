@@ -3,6 +3,17 @@
 Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.3.0] — 2026-10-14
+Saneamento: a planta do archive tinha duas verdades (handoff em `chats/` vs `context/`) e um comando ainda usava o layout irmão revogado.
+
+### Corrigido
+- `/archive-check`: caminhos `../<projeto>_archive` (layout irmão, revogado na v0.1.1) → `<projeto>_archive` dentro do projeto; o pre-commit deriva a raiz de `git rev-parse --show-toplevel`.
+- Planta única: handoff sempre em `context/AAAA-MM-DD-<slug>-context.md` (`SKILL.md`, `archive.md`, `archive-init.md`); `chats/` é só o rastro bruto.
+- Planta completa: acrescentadas as pastas que outras skills gravam — `orchestration/`, `scaffold/`, `context_agent/`, `overdev/AAAA-MM-DD-CONTEXTO.md` — além de `plan/ scan/ qa/ audit/ pentest/ decisoes/`; `SKILL.md`, README e `/archive-init` listam a planta inteira.
+- `/archive-todos` chama `collect-history.sh` pelo caminho instalado (`.claude/skills/schematize-archive/scripts/`), não relativo.
+- Removidas contagens fixas que envelhecem ("24 skills", "70 ocorrências").
+- `description` reescrita (<=350 caracteres). Padrão de ADR mantido: `ADR-NNNN-<slug>.md`.
+
 ## [0.2.0] — 2026-08-21
 Os **quatro buracos** que a vistoria de 2026-08-21 achou numa skill que declara criticidade 0 e promete rastro *"recuperável"* (4 ocorrências) em 119 linhas — e que reprovou no seu próprio primeiro teste real (B1).
 
