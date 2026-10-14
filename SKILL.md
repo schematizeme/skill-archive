@@ -1,7 +1,7 @@
 ---
 name: schematize-archive
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 description: >-
   Rege o `<projeto>/<projeto>_archive/` obrigatório (repo git privado: overdev, índice, ADRs, chats, handoffs) e gera
   afazeres para o overdev a partir do histórico. Use ao iniciar/retomar projeto, fechar marco ou recuperar o que
@@ -16,7 +16,7 @@ que ficou aberto* — a **observabilidade da evolução**. Sem ele, o sistema é
 retomada recomeça do zero, promessas somem, "feito" não se prova. **Archive ausente = bug de
 criticidade 0**, não um detalhe de fim de tarefa.
 
-**Versão:** skill `schematize-archive` v0.2.0. Changelog em `CHANGELOG.md`.
+**Versão:** skill `schematize-archive` v0.3.0. Changelog em `CHANGELOG.md`.
 
 ## Piso inegociável
 - **O archive é OBRIGATÓRIO** em todo projeto — materializado como `<projeto>/<projeto>_archive/`, **DENTRO do
