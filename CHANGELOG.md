@@ -14,6 +14,8 @@ Saneamento: a planta do archive tinha duas verdades (handoff em `chats/` vs `con
 - Removidas contagens fixas que envelhecem ("24 skills", "70 ocorrências").
 - `description` reescrita (<=350 caracteres). Padrão de ADR mantido: `ADR-NNNN-<slug>.md`.
 - `check-archive.sh`: a validação de convenção de nome cobre a planta inteira — `orchestration/` e `scaffold/` (AAAA-MM-DD-<slug>), `context_agent/` (`#N.txt`) e `overdev/AAAA-MM-DD-CONTEXTO.md`; antes só as pastas antigas. Casos vermelhos plantados em `check-archive.test.sh`.
+- **Description** reduzida (~270 chars) para caber no orçamento de listagem (soma das 31 skills ≤ 8500; o Claude Code corta a listagem acima disso).
+- `order` do `skill.toml` 13 → 23 (colidia com schematize-ai).
 
 ## [0.2.0] — 2026-08-21
 Os **quatro buracos** que a vistoria de 2026-08-21 achou numa skill que declara criticidade 0 e promete rastro *"recuperável"* (4 ocorrências) em 119 linhas — e que reprovou no seu próprio primeiro teste real (B1).

@@ -2,7 +2,7 @@ slug = "archive"
 name = "schematize-archive"
 tag = "Base · Archive"
 status = "beta"
-order = 13
+order = 23
 current_version = "0.2.0"
 href = "/archive"
 
