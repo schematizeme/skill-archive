@@ -3,6 +3,12 @@
 Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.3.1] — 2026-10-14
+Reduz a description para o orçamento de listagem.
+
+### Alterado
+- Description reduzida (≤235 chars) para caber no orçamento de listagem de skills (soma ≤8300); mesmo território, fronteiras com as irmãs preservadas.
+
 ## [0.3.0] — 2026-10-14
 Saneamento: a planta do archive tinha duas verdades (handoff em `chats/` vs `context/`) e um comando ainda usava o layout irmão revogado.
 

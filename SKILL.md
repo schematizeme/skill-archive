@@ -3,9 +3,8 @@ name: schematize-archive
 metadata:
   version: 0.3.0
 description: >-
-  Rege o `<projeto>/<projeto>_archive/` obrigatório (repo git privado: overdev, índice, ADRs, chats, handoffs) e gera
-  afazeres para o overdev a partir do histórico. Use ao iniciar/retomar projeto, fechar marco ou recuperar o que
-  ficou aberto (`/archive-init`, `/archive-todos`).
+  Rege o `<projeto>/<projeto>_archive/` obrigatório (repo git privado: overdev, índice, ADRs, handoffs) e gera
+  afazeres do histórico. Use ao iniciar/retomar projeto ou fechar marco (`/archive-init`, `/archive-todos`).
 ---
 
 # O ARCHIVE da casa (schematize-archive) — criticidade 0
