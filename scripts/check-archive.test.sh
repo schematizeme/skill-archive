@@ -76,6 +76,21 @@ checa "arquivo sem data na frente avisa" 0 "ordem alfabetica virar cronologica" 
 d="$(novo adr)"; printf '# y\n' > "$d/decisoes/ADR-0001-outra-coisa.md"
 checa "numero de ADR reusado reprova" 1 "numero reusado" bash "$G" "$d"
 
+for pasta in plan scan qa audit pentest orchestration scaffold; do
+  d="$(novo n_$pasta)"; mkdir -p "$d/$pasta"; printf '# x\n' > "$d/$pasta/rascunho.md"
+  checa "$pasta/ sem data na frente avisa" 0 "$pasta/rascunho.md fora da convencao" bash "$G" "$d"
+  d="$(novo v_$pasta)"; mkdir -p "$d/$pasta"; printf '# x\n' > "$d/$pasta/2026-10-14-ok.md"
+  checa "$pasta/ com nome certo nao avisa" 0 "convencao de nome ok" bash "$G" "$d"
+done
+d="$(novo ca)"; mkdir -p "$d/context_agent"; printf 'x\n' > "$d/context_agent/ctx-final.txt"
+checa "context_agent/ fora de #N.txt avisa" 0 "context_agent/ctx-final.txt fora da convencao" bash "$G" "$d"
+d="$(novo cav)"; mkdir -p "$d/context_agent"; printf 'x\n' > "$d/context_agent/#3.txt"
+checa "context_agent/#3.txt passa sem aviso" 0 "convencao de nome ok" bash "$G" "$d"
+d="$(novo od)"; printf '# x\n' > "$d/overdev/CONTEXTO-hoje.md"
+checa "overdev/ briefing sem AAAA-MM-DD-CONTEXTO.md avisa" 0 "overdev/CONTEXTO-hoje.md fora da convencao" bash "$G" "$d"
+d="$(novo odv)"; printf '# x\n' > "$d/overdev/2026-10-14-CONTEXTO.md"
+checa "overdev/2026-10-14-CONTEXTO.md passa" 0 "convencao de nome ok" bash "$G" "$d"
+
 echo "== repo proprio =="
 d="$(novo semgit)"; rm -rf "$d/.git"
 checa "archive que nao e repo git reprova" 1 "repo PROPRIO e PRIVADO" bash "$G" "$d"

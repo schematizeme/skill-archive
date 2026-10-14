@@ -13,6 +13,7 @@ Saneamento: a planta do archive tinha duas verdades (handoff em `chats/` vs `con
 - `/archive-todos` chama `collect-history.sh` pelo caminho instalado (`.claude/skills/schematize-archive/scripts/`), não relativo.
 - Removidas contagens fixas que envelhecem ("24 skills", "70 ocorrências").
 - `description` reescrita (<=350 caracteres). Padrão de ADR mantido: `ADR-NNNN-<slug>.md`.
+- `check-archive.sh`: a validação de convenção de nome cobre a planta inteira — `orchestration/` e `scaffold/` (AAAA-MM-DD-<slug>), `context_agent/` (`#N.txt`) e `overdev/AAAA-MM-DD-CONTEXTO.md`; antes só as pastas antigas. Casos vermelhos plantados em `check-archive.test.sh`.
 
 ## [0.2.0] — 2026-08-21
 Os **quatro buracos** que a vistoria de 2026-08-21 achou numa skill que declara criticidade 0 e promete rastro *"recuperável"* (4 ocorrências) em 119 linhas — e que reprovou no seu próprio primeiro teste real (B1).

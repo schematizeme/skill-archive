@@ -66,7 +66,7 @@ if [ -f "$raiz/.gitignore" ] && grep -qvE '^\s*(#|$)' "$raiz/.gitignore" 2>/dev/
 fi
 
 # --- 5. convencao de nome ----------------------------------------------------------------------
-for d in chats context plan scan qa audit pentest; do
+for d in chats context plan scan qa audit pentest orchestration scaffold; do
   [ -d "$raiz/$d" ] || continue
   for f in "$raiz/$d"/*; do
     [ -f "$f" ] || continue
@@ -76,6 +76,25 @@ for d in chats context plan scan qa audit pentest; do
       || avisos+=("$d/$b fora da convencao AAAA-MM-DD-<slug>.md — data na frente e o que faz ordem alfabetica virar cronologica")
   done
 done
+# context_agent/: contexto portavel gerado pelo app, nome #N.txt (N inteiro sequencial)
+if [ -d "$raiz/context_agent" ]; then
+  for f in "$raiz/context_agent"/*; do
+    [ -f "$f" ] || continue
+    b="$(basename "$f")"
+    case "$b" in README.md|.gitkeep) continue ;; esac
+    grep -qE '^#[0-9]+\.txt$' <<<"$b" \
+      || avisos+=("context_agent/$b fora da convencao #N.txt — o app ordena e retoma pelo numero")
+  done
+fi
+# overdev/: o briefing e AAAA-MM-DD-CONTEXTO.md (estado do control-plane, ex. iterations, nao e checado)
+if [ -d "$raiz/overdev" ]; then
+  for f in "$raiz/overdev"/*CONTEXTO*; do
+    [ -f "$f" ] || continue
+    b="$(basename "$f")"
+    grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-CONTEXTO\.md$' <<<"$b" \
+      || avisos+=("overdev/$b fora da convencao AAAA-MM-DD-CONTEXTO.md")
+  done
+fi
 if [ -d "$raiz/decisoes" ]; then
   declare -A vistos=()
   for f in "$raiz/decisoes"/*.md; do
